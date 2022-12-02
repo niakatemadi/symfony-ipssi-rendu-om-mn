@@ -16,6 +16,9 @@
         <h3>{{article.title}}</h3>
         
         <p>{{article.content}}</p>
+        <p>date de création :{{article.createdAt|date}}</p>
+        <p>date de modification :{{article.updatedAt|date}}</p>
+        <p>Auteur :{{article.Author.name}}</p>
     </div>
     {% endfor %}
     </div>
