@@ -26,6 +26,9 @@ class Article
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updated_at = null;
 
+    #[ORM\ManyToOne(inversedBy: 'articles')]
+    private ?User $Author = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +78,18 @@ class Article
     public function setUpdatedAt(?\DateTimeImmutable $updated_at): self
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->Author;
+    }
+
+    public function setAuthor(?User $Author): self
+    {
+        $this->Author = $Author;
 
         return $this;
     }
