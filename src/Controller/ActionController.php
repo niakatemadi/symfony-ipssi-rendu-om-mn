@@ -16,7 +16,7 @@ class ActionController extends AbstractController
 {
 
     //Admin
-    #[Route('/adminn', name: 'app_admin')]
+    #[Route('/admin', name: 'app_admin')]
     public function createArticle(Request $request, ArticleRepository $articleRepository): Response
     {
 
@@ -25,7 +25,8 @@ class ActionController extends AbstractController
         $form->handleRequest($request);
 
         $user = $this->getUser();
-        //dd($user);
+        
+        $article->setAuthor($user);
         if ($form->isSubmitted() && $form->isValid()) {
             $article->setAuthor($user);
             $article->setCreatedAt(new DateTimeImmutable('now'));

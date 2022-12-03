@@ -19,7 +19,10 @@
         <p>{{article.content}}</p>
         <p>date de création :{{article.createdAt|date}}</p>
         <p>date de modification :{{article.updatedAt|date}}</p>
+
+        {% if article.Author %}
         <p>Auteur :{{article.Author.name}}</p>
+        {% endif %}
     </div>
     {% endfor %}
     </div>
