@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Form\ProductFilterType;
 
 #[Route('/')]
-class HomeController extends AbstractController
+class ContentController extends AbstractController
 {
     #[Route('', name: 'app_home')]
     public function getLastArticles(ArticleRepository $articleRepository): Response
@@ -21,7 +21,7 @@ class HomeController extends AbstractController
         $articles = $articleRepository->findLastArticles(3);
 
         
-        return $this->render('home/index.html.twig', [
+        return $this->render('content/index.html.twig', [
             'articles' => $articles,
         ]);
     }
@@ -39,12 +39,13 @@ class HomeController extends AbstractController
             $price = $productForm->get('price')->getData();
             $category = $productForm->get('category')->getData();
             $seller = $productForm->get('seller')->getData();
-            
+            $quantity = 1;
+
             $products = $productRepository->productFilterByCategoryPriceSeller($category,$seller,$price);
 
         }
 
-        return $this->renderForm('home/products.html.twig', [
+        return $this->renderForm('content/products.html.twig', [
             'products' => $products,
             'productForm'=>$productForm
         ]);
@@ -54,7 +55,7 @@ class HomeController extends AbstractController
     public function getProductDetails(Product $product, ProductRepository $productRepository): Response
     {
         
-        return $this->render('home/product.html.twig', [
+        return $this->render('content/product.html.twig', [
             'product' => $product,
         ]);
     }
