@@ -17,7 +17,7 @@
      <nav>
             <a href="{{ path('app_home') }}">Home</a>
             {% if app.user %}
-                <a>Profile</a>
+                <a href="{{ path('app_profile',{'id' : app.user.id}) }}">Profile</a>
                 <a href="{{ path('app_logout') }}">Logout</a>
             {% else %}
             <a href="{{ path('app_home_products') }}">Products</a>
