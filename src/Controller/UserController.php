@@ -11,6 +11,7 @@ use App\Form\UserType;
 use App\Form\UserPasswordFormType;
 use App\Repository\UserRepository;
 use App\Entity\User;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 
 class UserController extends AbstractController
@@ -46,12 +47,21 @@ class UserController extends AbstractController
     }
 
     #[Route('profile/{id}/password/edit', name: 'app_profile_password_edit', methods: ['GET', 'POST'])]
-    public function editPassword(Request $request, User $user, UserRepository $userRepository): Response
+    public function editPassword(Request $request, User $user, UserRepository $userRepository,UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $form = $this->createForm(UserPasswordFormType::class, $user);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $form->get('password')->getData()
+                )
+            );
+
             $userRepository->save($user, true);
 
            // return $this->redirectToRoute('app_user_test_index', [], Response::HTTP_SEE_OTHER);
