@@ -9,34 +9,21 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Rechercher un produit ✅</h1>
-
-    {{ form_start(productForm) }}
-       <p> Enter max price</p> {{ form_row(productForm.price) }}
-        {{ form_row(productForm.category) }}
-        {{ form_row(productForm.seller) }}
-
-        <button type="submit" class="btn">Rechercher</button>
-    {{ form_end(productForm) }}
+    <h1>Voici les informations détaillé de ce produit ✅</h1>
     <div>
-    <h1>Voici la liste de nos produits ! ✅</h1>
-    {% for product in products %}
     <div>
         <h3>{{product.title}}</h3>
         
         <p>{{product.description}}</p>
         <p>{{product.price}}</p>
         <p>{{product.quantity}}</p>
-        <p>{{product.color}}</p>
         <p>date de création :{{product.createdAt|date}}</p>
         <p>date de modification :{{product.updatedAt|date}}</p>
 
         {% if product.seller %}
         <p>Auteur :{{product.seller.name}}</p>
         {% endif %}
-       <a href="{{path('app_home_product', {'id': product.id} )}}"> plus d'informations </a>
     </div>
-    {% endfor %}
     </div>
 </div>
 {% endblock %}

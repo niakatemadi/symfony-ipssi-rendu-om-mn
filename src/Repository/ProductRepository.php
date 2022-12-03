@@ -57,18 +57,6 @@ class ProductRepository extends ServiceEntityRepository
         ;
     }
 
-    public function productFilterSeller($seller): array
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.seller = :seller')
-            ->setParameter('seller', $seller)
-            ->orderBy('p.created_at', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-
 //    public function findOneBySomeField($value): ?Product
 //    {
 //        return $this->createQueryBuilder('p')
