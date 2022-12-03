@@ -43,6 +43,8 @@ class ProductRepository extends ServiceEntityRepository
 //     * @return Product[] Returns an array of Product objects
 //     */
 
+
+// Permet de filtrer les produits en fonction de la categorie, le vendeur et le prix
     public function productFilterByCategoryPriceSeller($category,$seller,$price): array
     {
         return $this->createQueryBuilder('p')
@@ -52,6 +54,17 @@ class ProductRepository extends ServiceEntityRepository
             ->setParameter('price', $price)
             ->orderBy('p.created_at', 'ASC')
             ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    // Permet de recupérer tous les produits d'un vendeur
+    public function getMyProducts($seller): array
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere(' p.seller = :seller ')
+            ->setParameter('seller', $seller)
             ->getQuery()
             ->getResult()
         ;

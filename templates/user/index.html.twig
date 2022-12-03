@@ -17,5 +17,13 @@
     <li>Status : </li>
     </ul>
 
+    <h1> Mes produits à vendre :</h1>
+    <div>
+    {% for product in products %}
+        <div>
+            <h3>{{product.title}}</h3>
+        </div>
+    {% endfor %}
+    </div>
 </div>
 {% endblock %}
