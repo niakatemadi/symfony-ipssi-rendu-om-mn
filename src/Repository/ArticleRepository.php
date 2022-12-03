@@ -45,7 +45,7 @@ class ArticleRepository extends ServiceEntityRepository
     public function findLastArticles($value): array
     {
         return $this->createQueryBuilder('a')
-            ->orderBy('a.created_at', 'ASC')
+            ->orderBy('a.created_at', 'DESC')
             ->setMaxResults($value)
             ->getQuery()
             ->getResult()
