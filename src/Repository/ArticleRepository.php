@@ -52,6 +52,16 @@ class ArticleRepository extends ServiceEntityRepository
         ;
     }
 
+        // Récupère les articles du plus récent ou du plus ancien
+    public function findAscOrDescArticles($sort): array
+    {
+        return $this->createQueryBuilder('a')
+            ->orderBy('a.created_at', $sort)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    public function findOneBySomeField($value): ?Article
 //    {
 //        return $this->createQueryBuilder('a')

@@ -46,6 +46,7 @@ class UserController extends AbstractController
         ]);
     }
 
+        
     #[Route('profile/{id}/password/edit', name: 'app_profile_password_edit', methods: ['GET', 'POST'])]
     public function editPassword(Request $request, User $user, UserRepository $userRepository,UserPasswordHasherInterface $userPasswordHasher): Response
     {

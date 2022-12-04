@@ -12,6 +12,7 @@ use App\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Article;
 use App\Form\ArticleType;
+use App\Form\AdminArticleFormType;
 
 #[Route('/admin')]
 class AdminController extends AbstractController
@@ -34,14 +35,26 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/articles', name: 'app_admin_articles', methods: ['GET'])]
-    public function getFilteredArticles(ArticleRepository $articleRepository): Response
+    #[Route('/articles', name: 'app_admin_articles', methods: ['GET','POST'])]
+    public function getFilteredArticles(ArticleRepository $articleRepository, Request $request): Response
     {
 
-        $articles = $articleRepository->findAll();
+        $sortArticleForm = $this->createForm(AdminArticleFormType::class);
+        $sortArticleForm->handleRequest($request);
 
-        return $this->render('content/article/show.articles.html.twig', [
+        $articles = $articleRepository->findAscOrDescArticles('DESC');
+
+        if ($sortArticleForm->isSubmitted() && $sortArticleForm->isValid()) {
+           
+            $ascOrDesc = $sortArticleForm->get('content')->getData();
+
+            $articles = $articleRepository->findAscOrDescArticles($ascOrDesc);
+
+        }
+
+        return $this->renderForm('content/article/show.articles.html.twig', [
             'articles' => $articles,
+            'form' => $sortArticleForm,
         ]);
     }
 
