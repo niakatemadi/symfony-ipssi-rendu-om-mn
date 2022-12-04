@@ -29,13 +29,25 @@
                 <a href="{{ path('app_register') }}">Register</a>
                 <a href="{{ path('app_login') }}">Sign in</a>
             {% endif %}
+            {% if app.user %}
+                {% if 'ROLE_ADMIN' in app.user.roles %}
+                <a class="link_client_admin" href="{{ path('app_home') }}">Go client side</a>        
+                {% endif %}
+            {% endif %}
+
+           
            
         </nav>
-         {% if 'ROLE_ADMIN' in app.user.roles %}
-            <h3>
-            Vous etes connecté en tant que administrateur
-            </h3>            
-        {% endif %}
+        <div class="admin_alert">
+            {% if app.user %}
+                {% if 'ROLE_ADMIN' in app.user.roles %}
+                    <h3>
+                    Vous etes connecté en tant que administrateur
+                    </h3>            
+                {% endif %}
+            {% endif %}
+        </div>
+         
     </header>
     
     <body>

@@ -9,12 +9,15 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Admin page ! ✅</h1>
-    <h3>Statistiques du site :</h3>
-    <p>number of articles :{{articlesCount}}</p>
-    <p>number of products :{{productsCount}}</p>
-    <p>number of category :{{categoryCount}}</p>
-    <p>number of users :{{usersCount}}</p>
+    <h1>Statistiques du site :</h1>
+    <div class="bloc-stats">
+        <div class="bloc-stats-content">
+            <p>Number of articles : <mark>{{articlesCount}}</mark></p>
+            <p>Number of products : <mark>{{productsCount}}</mark></p>
+            <p>Number of category : <mark>{{categoryCount}}</mark></p>
+            <p>Number of users : <mark>{{usersCount}}</mark></p>
+        </div>
+    </div>
 
 </div>
 {% endblock %}

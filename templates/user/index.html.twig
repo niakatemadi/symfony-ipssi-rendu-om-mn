@@ -20,15 +20,33 @@
     </ul>
 
     <h1> Mes produits à vendre :</h1>
-    <a href="{{ path('app_product_create') }}">Create product</a>
+    <a href="{{ path('app_product_create') }}"><p class="btn">Create product</p></a>
     <div>
+    <ul class="bloc_card_product">
+    
     {% for product in products %}
-        <div>
-            <h3>{{product.title}}</h3>
-            <a href="{{ path('app_product_edit',{'id':product.id}) }}">Edit</a>
+    <div class="card_product">
+        <li><span>Title:</span> {{product.title}}</li>
+        <div class="card_product_details">
+            <p><span>Description:</span> {{product.description}}</p>
+            <p><span>Price : </span>{{product.price}} €</p>
+            <p><span>Quantity :</span>{{product.quantity}}</p>
+            <p><span>Color: {{product.color}}</span></p>
+            <p><span>Date création:</span> {{product.createdAt|date}}</p>
+            <p><span>Date update :</span> {{product.updatedAt|date}}</p>
+            {% if product.seller %}
+            <p><span>Auteur : </span>{{product.seller.name}}</p>
+            <a href="{{ path('app_product_edit',{'id':product.id}) }}"><P class="btn">Edit</p></a>
             {{ include('content/product/delete.html.twig') }}
         </div>
+        {% endif %}
+        
+    </div>
+
     {% endfor %}
+    </ul>
+    
+    
     </div>
 </div>
 {% endblock %}

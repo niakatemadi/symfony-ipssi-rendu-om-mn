@@ -16,18 +16,23 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 #[Route('/profile')]
 class UserController extends AbstractController
 {
+
+    // Permet d'affiche les infos de l'utilisateur connecté sur la page profile
+
     #[Route('/{id}', name: 'app_profile')]
     public function getProfile(ProductRepository $productRepository): Response
     {
 
         $user = $this->getUser();
         $products = $productRepository->getMyProducts($user);
+        
         return $this->render('user/index.html.twig', [
             'user' => $user,
             'products' => $products
         ]);
     }
 
+    // Permet de modifier les infos de profile de l'utilisateur connecté
     #[Route('/{id}/edit', name: 'app_profile_edit', methods: ['GET', 'POST'])]
     public function editProfile(Request $request, User $user, UserRepository $userRepository): Response
     {
@@ -37,7 +42,6 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $userRepository->save($user, true);
 
-           // return $this->redirectToRoute('app_user_test_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('content/user/edit.html.twig', [
@@ -46,6 +50,7 @@ class UserController extends AbstractController
         ]);
     }
 
+    //Permet de modifier le mot de passe de l'utilisateur connecté
         
     #[Route('/{id}/password/edit', name: 'app_profile_password_edit', methods: ['GET', 'POST'])]
     public function editPassword(Request $request, User $user, UserRepository $userRepository,UserPasswordHasherInterface $userPasswordHasher): Response
@@ -73,5 +78,4 @@ class UserController extends AbstractController
         ]);
     }
 
-   
 }

@@ -12,9 +12,24 @@
     <h1>Users products ! ✅</h1>
     <p>Enter "ASC" or "DESC" on description field</p>
     {{ include('content/_form.html.twig') }}
-    <ul>
+    <ul class="bloc_card_product">
+    
     {% for product in products %}
-    <li>{{product.title}}</li>
+    <div class="card_product">
+        <li><span>Title:</span> {{product.title}}</li>
+        <div class="card_product_details">
+            <p><span>Description:</span> {{product.description}}</p>
+            <p><span>Price : </span>{{product.price}} €</p>
+            <p><span>Quantity :</span>{{product.quantity}}</p>
+            <p><span>Color: {{product.color}}</span></p>
+            <p><span>Date création:</span> {{product.createdAt|date}}</p>
+            <p><span>Date update :</span> {{product.updatedAt|date}}</p>
+            {% if product.seller %}
+            <p><span>Auteur : </span>{{product.seller.name}}</p>
+        </div>
+        {% endif %}
+        
+    </div>
 
     {% endfor %}
     </ul>

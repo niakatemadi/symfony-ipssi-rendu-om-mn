@@ -19,32 +19,6 @@ use DateTimeImmutable;
 class ActionController extends AbstractController
 {
 
-    //Admin
-    #[Route('/admin', name: 'app_admin')]
-    public function createArticle(Request $request, ArticleRepository $articleRepository): Response
-    {
-
-        $article = new Article();
-        $form = $this->createForm(ArticleType::class, $article);
-        $form->handleRequest($request);
-
-        $user = $this->getUser();
-        
-        $article->setAuthor($user);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $article->setAuthor($user);
-            $article->setCreatedAt(new DateTimeImmutable('now'));
-            $articleRepository->save($article, true);
-
-            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('content/article/create.html.twig', [
-            'article' => $article,
-            'form' => $form,
-        ]);
-
-    }
 
     //Product
     //Create product
@@ -81,6 +55,8 @@ class ActionController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $product->setUpdatedAt(new DateTimeImmutable('now'));
             $productRepository->save($product, true);
 
            // return $this->redirectToRoute('app_test_product_index', [], Response::HTTP_SEE_OTHER);

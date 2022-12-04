@@ -9,13 +9,18 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Admin users page ! ✅</h1>
-    <h3>Enter "client" our "vendeur"</h3>
+    <h1>Rechercher des utilisateurs ✅</h1>
+    <h3 class='mark'>Enter "client" our "vendeur"</h3>
     {{ include('content/_form.html.twig') }}
-    <ul>
-    {% for user in users %}
-    <li>{{ user.name }}</li>
-    {% endfor %}
+    <ul class="bloc_card_product">
+        {% for user in users %}
+        <div class="card_product">
+            <li><span>Name:</span> {{user.name}}</li>
+            <div class="card_product_details">
+                <p><span>Firstname:</span> {{user.firstname}}</p>
+                <p><span>Statut : </span>{{user.statut}} €</p>
+            </div>
+        {% endfor %}
     </ul>
 
 

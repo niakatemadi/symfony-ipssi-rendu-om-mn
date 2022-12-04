@@ -15,6 +15,9 @@ use App\Form\ProductFilterType;
 #[Route('/')]
 class ContentController extends AbstractController
 {
+
+// Pages sans connexions
+// affiche les 3 articles les plus récents
     #[Route('', name: 'app_home')]
     public function getLastArticles(ArticleRepository $articleRepository): Response
     {
@@ -26,6 +29,7 @@ class ContentController extends AbstractController
         ]);
     }
 
+    // affiche la liste des produits basée sur des filtres
     #[Route('products', name: 'app_home_products')]
     public function getFilteredProducts(Request $request, ProductRepository $productRepository): Response
     {
@@ -51,6 +55,7 @@ class ContentController extends AbstractController
         ]);
     }
 
+    //Affiche tout les détails sur un produit
     #[Route('products/{id}', name: 'app_home_product')]
     public function getProductDetails(Product $product, ProductRepository $productRepository): Response
     {

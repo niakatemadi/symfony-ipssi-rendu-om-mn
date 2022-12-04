@@ -3,8 +3,7 @@
 {% block title %}Article index{% endblock %}
 
 {% block body %}
-    <h1>Article index</h1>
-    <p>Pour trier écrire : 'ASC' or 'DESC'</p>
+    <p class="mark">Pour trier écrire : 'ASC' or 'DESC' dans content and save</p>
     {{ include('content/_form.html.twig') }}
 
     <table class="table">
@@ -27,8 +26,8 @@
                 <td>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ article.updatedAt ? article.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_article_show', {'id': article.id}) }}">show</a>
-                    <a href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
+                    <a href="{{ path('app_article_show', {'id': article.id}) }}"><p class='btn'>show</p></a>
+                    <a href="{{ path('app_article_edit', {'id': article.id}) }}"><p class='btn'>edit</p></a>
                 </td>
             </tr>
         {% else %}
@@ -39,5 +38,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_article_create') }}">Create new</a>
+    <a href="{{ path('app_article_create') }}"><p class="btn">Create new<p></a>
 {% endblock %}
