@@ -53,7 +53,20 @@ class ProductRepository extends ServiceEntityRepository
             ->setParameter('seller', $seller)
             ->setParameter('price', $price)
             ->orderBy('p.created_at', 'ASC')
-            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
+    // Permet de filtrer les produits en fonction de la categorie, le vendeur et ASC and DESC
+    public function productFilterByCategorySellerAscDesc($categoryName,$sellerName,$ascOrDesc): array
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.category = :category AND p.seller = :seller')
+            ->setParameter('category', $categoryName)
+            ->setParameter('seller', $sellerName)
+            ->orderBy('p.created_at', $ascOrDesc)
             ->getQuery()
             ->getResult()
         ;

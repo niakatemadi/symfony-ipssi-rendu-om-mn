@@ -26,6 +26,12 @@
             {% endif %}
            
         </nav>
+        {% if 'ROLE_ADMIN' in app.user.roles %}
+            <h3>
+            Vous etes connecté en tant que administrateur
+            </h3>            
+        {% endif %}
+        
     </header>
     
     <body>

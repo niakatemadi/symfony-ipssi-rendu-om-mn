@@ -16,6 +16,8 @@ use App\Form\UserType;
 use App\Form\CategoryType;
 use App\Form\AdminArticleFormType;
 use App\Form\AdminFilteredUserType;
+use App\Form\AdminFilteredProductsType;
+
 
 #[Route('/admin')]
 class AdminController extends AbstractController
@@ -63,7 +65,7 @@ class AdminController extends AbstractController
     }
 
     #[Route('/articles/create', name: 'app_article_create', methods: ['GET', 'POST'])]
-    public function new(Request $request, ArticleRepository $articleRepository): Response
+    public function createArticle(Request $request, ArticleRepository $articleRepository): Response
     {
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
@@ -82,7 +84,7 @@ class AdminController extends AbstractController
     }
 
     #[Route('/articles/{id}', name: 'app_article_show', methods: ['GET'])]
-    public function show(Article $article): Response
+    public function showArticle(Article $article): Response
     {
         return $this->render('content/article/show.html.twig', [
             'article' => $article,
@@ -160,6 +162,32 @@ class AdminController extends AbstractController
         return $this->renderForm('admin/displayUsersPage/index.html.twig', [
             'users' => $users,
             'form' => $form
+        ]);
+    }
+
+    //Product
+    #[Route('/products', name: 'app_admin_products')]
+    public function showFilteredProducts(ProductRepository $productRepository, Request $request): Response
+    {
+
+        $form = $this->createForm(AdminFilteredProductsType::class);
+        $form->handleRequest($request);
+
+        $products = $productRepository ->findAll();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $ascOrDesc = $form->get('description')->getData();
+            $categoryName = $form->get('category')->getData();
+            $SellerName = $form->get('seller')->getData();
+
+            $products = $productRepository ->productFilterByCategorySellerAscDesc($categoryName,$SellerName,$ascOrDesc);
+
+        }
+
+        return $this->renderForm('admin/products/index.html.twig', [
+            'products' => $products,
+            'form' => $form,
         ]);
     }
 }

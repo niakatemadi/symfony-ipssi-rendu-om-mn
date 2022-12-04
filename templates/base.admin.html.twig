@@ -18,7 +18,8 @@
             <a href="{{ path('app_admin') }}">Home</a>
             {% if app.user %}
                 <a href="{{ path('app_admin_articles') }}">Articles</a>
-                <a >Products</a>
+                <a href="{{ path('app_admin_products') }}">Products</a>
+                
                 <a href="{{ path('app_admin_category') }}">Category</a>
                 <a href="{{ path('app_admin_user') }}">Users</a>
                 
@@ -30,6 +31,11 @@
             {% endif %}
            
         </nav>
+         {% if 'ROLE_ADMIN' in app.user.roles %}
+            <h3>
+            Vous etes connecté en tant que administrateur
+            </h3>            
+        {% endif %}
     </header>
     
     <body>
