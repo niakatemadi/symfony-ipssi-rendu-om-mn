@@ -12,6 +12,7 @@ use App\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Article;
 use App\Form\ArticleType;
+use App\Form\UserType;
 use App\Form\CategoryType;
 use App\Form\AdminArticleFormType;
 
@@ -133,10 +134,29 @@ class AdminController extends AbstractController
         }
 
 
-        
-        
         return $this->renderForm('content/category/index.html.twig', [
             'categories' => $categories,
+            'form' => $form
+        ]);
+    }
+
+    //User
+    #[Route('/user', name: 'app_admin_user')]
+    public function getUsersByStatut(UserRepository $userRepository, Request $request): Response
+    {
+        $form = $this->createForm(UserType::class);
+        $form->handleRequest($request);
+
+        $users = $userRepository->findUsersByStatut('vendeur');
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userStatut = $form->get('statut')->getData();
+
+            $users = $userRepository->findUsersByStatut($userStatut);
+        }
+
+        return $this->renderForm('admin/displayUsersPage/index.html.twig', [
+            'users' => $users,
             'form' => $form
         ]);
     }
