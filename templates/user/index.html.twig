@@ -20,10 +20,13 @@
     </ul>
 
     <h1> Mes produits à vendre :</h1>
+    <a href="{{ path('app_product_create') }}">Create product</a>
     <div>
     {% for product in products %}
         <div>
             <h3>{{product.title}}</h3>
+            <a href="{{ path('app_product_edit',{'id':product.id}) }}">Edit</a>
+            {{ include('content/product/delete.html.twig') }}
         </div>
     {% endfor %}
     </div>

@@ -3,11 +3,13 @@
 namespace App\Form;
 
 use App\Entity\Product;
+use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-class ProductType extends AbstractType
+class ProductEditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -16,15 +18,12 @@ class ProductType extends AbstractType
             ->add('description')
             ->add('price')
             ->add('image')
-            ->add('created_at')
-            ->add('updated_at')
             ->add('quantity')
             ->add('color')
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => "name"
             ])
-            ->add('seller')
         ;
     }
 
