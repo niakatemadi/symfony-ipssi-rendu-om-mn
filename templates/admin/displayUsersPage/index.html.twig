@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.admin.html.twig' %}
 
 {% block title %}Hello AdminUserController!{% endblock %}
 
@@ -10,6 +10,8 @@
 
 <div class="example-wrapper">
     <h1>Admin users page ! ✅</h1>
+    <h3>Enter "client" our "vendeur"</h3>
+    {{ include('content/_form.html.twig') }}
     <ul>
     {% for user in users %}
     <li>{{ user.name }}</li>

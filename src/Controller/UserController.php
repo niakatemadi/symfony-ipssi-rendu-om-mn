@@ -13,10 +13,10 @@ use App\Repository\UserRepository;
 use App\Entity\User;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-
+#[Route('/profile')]
 class UserController extends AbstractController
 {
-    #[Route('/profile/{id}', name: 'app_profile')]
+    #[Route('/{id}', name: 'app_profile')]
     public function getProfile(ProductRepository $productRepository): Response
     {
 
@@ -28,7 +28,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('profile/{id}/edit', name: 'app_profile_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_profile_edit', methods: ['GET', 'POST'])]
     public function editProfile(Request $request, User $user, UserRepository $userRepository): Response
     {
         $form = $this->createForm(UserType::class, $user);
@@ -47,7 +47,7 @@ class UserController extends AbstractController
     }
 
         
-    #[Route('profile/{id}/password/edit', name: 'app_profile_password_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/password/edit', name: 'app_profile_password_edit', methods: ['GET', 'POST'])]
     public function editPassword(Request $request, User $user, UserRepository $userRepository,UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $form = $this->createForm(UserPasswordFormType::class, $user);
@@ -65,7 +65,6 @@ class UserController extends AbstractController
 
             $userRepository->save($user, true);
 
-           // return $this->redirectToRoute('app_user_test_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('content/user/edit.password.html.twig', [

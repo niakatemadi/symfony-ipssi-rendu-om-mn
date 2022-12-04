@@ -15,6 +15,7 @@ use App\Form\ArticleType;
 use App\Form\UserType;
 use App\Form\CategoryType;
 use App\Form\AdminArticleFormType;
+use App\Form\AdminFilteredUserType;
 
 #[Route('/admin')]
 class AdminController extends AbstractController
@@ -141,10 +142,11 @@ class AdminController extends AbstractController
     }
 
     //User
+    // permet de recevoir la liste des utilisateurs en fonction de leurs statut "client" ou "vendeur"
     #[Route('/user', name: 'app_admin_user')]
     public function getUsersByStatut(UserRepository $userRepository, Request $request): Response
     {
-        $form = $this->createForm(UserType::class);
+        $form = $this->createForm(AdminFilteredUserType::class);
         $form->handleRequest($request);
 
         $users = $userRepository->findUsersByStatut('vendeur');
