@@ -19,7 +19,7 @@
             {% if app.user %}
                 <a href="{{ path('app_admin_articles') }}">Articles</a>
                 <a >Products</a>
-                <a >Catégories</a>
+                <a href="{{ path('app_admin_category') }}">Category</a>
                 <a >Users</a>
                 <a href="{{ path('app_logout') }}">Logout</a>
             {% else %}

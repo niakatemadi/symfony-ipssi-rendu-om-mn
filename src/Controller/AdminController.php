@@ -12,6 +12,7 @@ use App\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Article;
 use App\Form\ArticleType;
+use App\Form\CategoryType;
 use App\Form\AdminArticleFormType;
 
 #[Route('/admin')]
@@ -115,5 +116,28 @@ class AdminController extends AbstractController
     }
 
     //Catégory
-    
+    // récupère toutes les catégories par ordre DESC or ASC
+    #[Route('/category', name: 'app_admin_category')]
+    public function getAllCategories(CategoryRepository $categoryRepository, Request $request): Response
+    {
+
+        $form = $this->createForm(CategoryType::class);
+        $form->handleRequest($request);
+
+        $categories = $categoryRepository->findAscOrDescCategory('ASC');
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $ascOrDesc = $form->get('name')->getData();
+
+            $categories = $categoryRepository->findAscOrDescCategory($ascOrDesc);
+        }
+
+
+        
+        
+        return $this->renderForm('content/category/index.html.twig', [
+            'categories' => $categories,
+            'form' => $form
+        ]);
+    }
 }

@@ -39,6 +39,16 @@ class CategoryRepository extends ServiceEntityRepository
         }
     }
 
+        // Récupère les categories du plus récent ou du plus ancien
+        public function findAscOrDescCategory($sort): array
+        {
+            return $this->createQueryBuilder('a')
+                ->orderBy('a.id', $sort)
+                ->getQuery()
+                ->getResult()
+            ;
+        }
+
 //    /**
 //     * @return Category[] Returns an array of Category objects
 //     */
