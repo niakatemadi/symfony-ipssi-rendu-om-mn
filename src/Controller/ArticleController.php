@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/adminnn')]
 class ArticleController extends AbstractController
 {
-    #[Route('/', name: 'app_article_index', methods: ['GET'])]
+    #[Route('/', name: 'app_article_inde', methods: ['GET'])]
     public function index(ArticleRepository $articleRepository): Response
     {
         return $this->render('article/index.html.twig', [
@@ -21,7 +21,7 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_article_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'app_article_ne', methods: ['GET', 'POST'])]
     public function new(Request $request, ArticleRepository $articleRepository): Response
     {
         $article = new Article();
@@ -40,7 +40,7 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_article_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_article_sho', methods: ['GET'])]
     public function show(Article $article): Response
     {
         return $this->render('article/show.html.twig', [
@@ -48,7 +48,7 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_article_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_article_edi', methods: ['GET', 'POST'])]
     public function edit(Request $request, Article $article, ArticleRepository $articleRepository): Response
     {
         $form = $this->createForm(ArticleType::class, $article);
@@ -66,7 +66,7 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_article_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_article_delet', methods: ['POST'])]
     public function delete(Request $request, Article $article, ArticleRepository $articleRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
