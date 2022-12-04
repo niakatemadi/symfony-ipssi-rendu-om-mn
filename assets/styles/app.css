@@ -162,3 +162,8 @@ span
 {
     font-weight: bold;
 }
+.btn-logout 
+{
+    color:red;
+    font-weight: bold;
+}

@@ -21,6 +21,17 @@ class ActionController extends AbstractController
 
 
     //Product
+    // get All products
+    #[Route('/profile/products', name: 'app_products_get')]
+    public function showAllProducts(ProductRepository $productRepository): Response
+    {
+        $products = $productRepository->findAll();
+
+        return $this->render('content/product/index.html.twig', [
+            'products' => $products,
+        ]);
+    }
+
     //Create product
     #[Route('/profile/product/create', name: 'app_product_create', methods: ['GET', 'POST'])]
     public function createProduct(Request $request, ProductRepository $productRepository): Response

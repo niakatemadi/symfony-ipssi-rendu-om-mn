@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UserController!{% endblock %}
+{% block title %}Hello ClientProductsController!{% endblock %}
 
 {% block body %}
 <style>
@@ -9,18 +9,7 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Page profil </h1>
-    <ul>
-    <li>Nom : {{user.name}}</li>
-    <li>Prénom : {{user.firstname}}</li>
-    <li>Email : {{user.email}}</li>
-    <a href="{{ path('app_profile_edit',{'id':user.id}) }}"><p class="btn">Update profile</p></a>
-    <a href="{{ path('app_profile_password_edit',{'id':user.id}) }}"><p class="btn">Update password</p></a>
-    </ul>
-
-    <h1> Mes produits à vendre :</h1>
-    <a href="{{ path('app_product_create') }}"><p class="btn">Create product</p></a>
-    <div>
+    <h1>Tout les produits à vendre ✅</h1>
     <ul class="bloc_card_product">
     
     {% for product in products %}
@@ -35,8 +24,7 @@
             <p><span>Date update :</span> {{product.updatedAt|date}}</p>
             {% if product.seller %}
             <p><span>Auteur : </span>{{product.seller.name}}</p>
-            <a href="{{ path('app_product_edit',{'id':product.id}) }}"><P class="btn">Edit</p></a>
-            {{ include('content/product/delete.html.twig') }}
+            <button class="btn">Ajouter au panier</button>
         </div>
         {% endif %}
         
@@ -44,8 +32,6 @@
 
     {% endfor %}
     </ul>
-    
-    
-    </div>
+
 </div>
 {% endblock %}
