@@ -35,6 +35,7 @@ class AdminController extends AbstractController
         ]);
     }
 
+        //Articles
     #[Route('/articles', name: 'app_admin_articles', methods: ['GET','POST'])]
     public function getFilteredArticles(ArticleRepository $articleRepository, Request $request): Response
     {
@@ -113,5 +114,6 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('app_admin_articles', [], Response::HTTP_SEE_OTHER);
     }
 
+    //Catégory
     
 }
